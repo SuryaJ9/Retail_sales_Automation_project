@@ -1,0 +1,126 @@
+
+# 🛒 Retail Sales EDA – PostgreSQL + Python
+
+## 📌 Project Overview
+
+This project explores **retail sales transactions** stored in a PostgreSQL database (`retail_sales1` table).
+The goal is to perform **Exploratory Data Analysis (EDA)** to uncover:
+
+* Customer demographics & buying behavior
+* Category-level performance
+* Sales & profitability insights
+* Patterns that can drive **business decision-making**
+
+---
+
+## 🗂 Dataset Structure
+
+**Table:** `retail_sales1`
+
+| Column         | Type        | Description                |
+| -------------- | ----------- | -------------------------- |
+| transaction_id | SERIAL (PK) | Unique transaction ID      |
+| sale_date      | DATE        | Date of transaction        |
+| sale_time      | TIME        | Time of transaction        |
+| customer_id    | INT         | Unique customer identifier |
+| gender         | VARCHAR(30) | Customer gender            |
+| age            | INT         | Customer age               |
+| category       | VARCHAR(30) | Product category           |
+| quantity       | INT         | Quantity purchased         |
+| price_per_unit | FLOAT       | Price of one unit          |
+| cogs           | FLOAT       | Cost of goods sold         |
+| total_sale     | FLOAT       | Total sales value          |
+
+---
+
+## 🔍 EDA Workflow
+
+1. **Data Extraction**
+
+   * Connect to PostgreSQL using Python (`psycopg2` / `SQLAlchemy`).
+   * Query the `retail_sales1` table.
+
+2. **Data Cleaning & Preprocessing**
+
+   * Handle missing values.
+   * Ensure correct data types (`date`, `time`, `numeric`).
+   * Create derived fields (e.g., `profit = total_sale - cogs`).
+
+3. **Univariate Analysis**
+
+   * Distribution of `age`
+   * Gender split
+   * Most popular product categories
+
+4. **Bivariate / Multivariate Analysis**
+
+   * Sales by category & gender
+   * Age group vs. total sales
+   * Time-of-day sales patterns
+
+5. **Business Insights**
+
+   * Identify **top revenue-generating categories**
+   * Analyze **high-value customer segments**
+   * Estimate **profit margins** by category
+
+---
+
+## 📊 Sample Visualizations
+
+* **Sales by Category (Bar Chart)**
+* **Age Distribution (Histogram)**
+* **Sales Trend Over Time (Line Chart)**
+* **Gender-wise Spending Patterns (Pie Chart)**
+
+*(Will be included in `/notebooks/EDA.ipynb`)*
+
+---
+
+## ⚙️ Tech Stack
+
+* **Database:** PostgreSQL
+* **ETL:** Python (`psycopg2`, `pandas`)
+* **EDA & Visualization:** Python (`pandas`, `matplotlib`, `seaborn`, `plotly`)
+* **Version Control:** GitHub
+
+---
+
+## 🚀 How to Run
+
+1. Clone this repo:
+
+   ```bash
+   git clone https://github.com/SuryaJ9/Retail_sales_Automation.git
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Set up database connection in `config.py`:
+
+   ```python
+   DB_NAME = "your_db"
+   USER = "your_username"
+   PASSWORD = "your_password"
+   HOST = "localhost"
+   PORT = "5432"
+   ```
+
+4. Run Jupyter Notebook:
+
+   ```bash
+   jupyter notebook notebooks/EDA.ipynb
+   ```
+
+---
+
+## 📈 Expected Outcomes
+
+* Clear view of **customer demographics**
+* Insights into **category-level profitability**
+* Actionable recommendations for **retail strategy**
+* Framework for extending into **predictive analytics** (demand forecasting, customer segmentation)
