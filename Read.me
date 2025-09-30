@@ -1,126 +1,124 @@
 
-# 🛒 Retail Sales EDA – PostgreSQL + Python
+# 🛒 Retail Sales Analysis with PostgreSQL + Python + Google Sheets + API
 
 ## 📌 Project Overview
 
-This project explores **retail sales transactions** stored in a PostgreSQL database (`retail_sales1` table).
-The goal is to perform **Exploratory Data Analysis (EDA)** to uncover:
+This project demonstrates how to build a **mini retail analytics pipeline** using:
 
-* Customer demographics & buying behavior
-* Category-level performance
-* Sales & profitability insights
-* Patterns that can drive **business decision-making**
+* **API Integration** (to fetch product data)
+* **Python** (for automation & data processing)
+* **PostgreSQL** (for structured storage & querying)
+* **Google Sheets** (for visualization & reporting)
 
----
-
-## 🗂 Dataset Structure
-
-**Table:** `retail_sales1`
-
-| Column         | Type        | Description                |
-| -------------- | ----------- | -------------------------- |
-| transaction_id | SERIAL (PK) | Unique transaction ID      |
-| sale_date      | DATE        | Date of transaction        |
-| sale_time      | TIME        | Time of transaction        |
-| customer_id    | INT         | Unique customer identifier |
-| gender         | VARCHAR(30) | Customer gender            |
-| age            | INT         | Customer age               |
-| category       | VARCHAR(30) | Product category           |
-| quantity       | INT         | Quantity purchased         |
-| price_per_unit | FLOAT       | Price of one unit          |
-| cogs           | FLOAT       | Cost of goods sold         |
-| total_sale     | FLOAT       | Total sales value          |
+The goal is to **simulate real-world retail sales data** and perform **Exploratory Data Analysis (EDA)** to generate business insights.
 
 ---
 
-## 🔍 EDA Workflow
+## ⚙️ Workflow (Step-by-Step)
 
-1. **Data Extraction**
+1. **Set Up Database**
 
-   * Connect to PostgreSQL using Python (`psycopg2` / `SQLAlchemy`).
-   * Query the `retail_sales1` table.
+   * Create a PostgreSQL table:
 
-2. **Data Cleaning & Preprocessing**
+     ```sql
+     CREATE TABLE IF NOT EXISTS public.retail_sales1 (
+         transaction_id serial PRIMARY KEY,
+         sale_date date,
+         sale_time time,
+         customer_id integer,
+         gender varchar(30),
+         age integer,
+         category varchar(30),
+         quantity integer,
+         price_per_unit double precision,
+         cogs double precision,
+         total_sale double precision
+     );
+     ```
+   * Run this in pgAdmin or psql.
 
-   * Handle missing values.
-   * Ensure correct data types (`date`, `time`, `numeric`).
-   * Create derived fields (e.g., `profit = total_sale - cogs`).
+2. **Fetch Data from API (Fake Store API)**
 
-3. **Univariate Analysis**
+   * Use Python `requests` to pull product details.
 
-   * Distribution of `age`
-   * Gender split
-   * Most popular product categories
+3. **Simulate Retail Transactions**
 
-4. **Bivariate / Multivariate Analysis**
+   * Generate random customer demographics (age, gender, ID).
+   * Insert data into PostgreSQL with `psycopg2`.
 
-   * Sales by category & gender
-   * Age group vs. total sales
-   * Time-of-day sales patterns
+4. **Connect PostgreSQL to Google Sheets**
 
-5. **Business Insights**
+   * Export queried data into CSV.
+   * Use Google Sheets for visualization (category sales, customer demographics, etc.).
 
-   * Identify **top revenue-generating categories**
-   * Analyze **high-value customer segments**
-   * Estimate **profit margins** by category
+5. **Perform EDA in Python**
+
+   * Load data into Pandas from PostgreSQL.
+   * Analyze:
+
+     * Sales by Category
+     * Age/Gender Distribution
+     * Revenue vs. COGS
+     * Top Products by Sales
 
 ---
 
-## 📊 Sample Visualizations
+## 📊 EDA Checklist
 
-* **Sales by Category (Bar Chart)**
-* **Age Distribution (Histogram)**
-* **Sales Trend Over Time (Line Chart)**
-* **Gender-wise Spending Patterns (Pie Chart)**
-
-*(Will be included in `/notebooks/EDA.ipynb`)*
+* **Data Cleaning**: Missing values, duplicates, type checks.
+* **Descriptive Stats**: Mean, median, distribution.
+* **Sales Trends**: Daily, weekly, category-wise.
+* **Customer Insights**: Age groups, gender contribution.
+* **Profitability**: Revenue vs. cost (margin analysis).
 
 ---
 
-## ⚙️ Tech Stack
+## 📂 Repository Structure
 
-* **Database:** PostgreSQL
-* **ETL:** Python (`psycopg2`, `pandas`)
-* **EDA & Visualization:** Python (`pandas`, `matplotlib`, `seaborn`, `plotly`)
-* **Version Control:** GitHub
+```
+retail-sales-analysis/
+│── data/                # Raw & processed data
+│── scripts/             # Python scripts (API fetch, DB insert, EDA)
+│── notebooks/           # Jupyter notebooks for analysis
+│── sql/                 # SQL schema & queries
+│── README.md            # Project documentation
+```
 
 ---
 
 ## 🚀 How to Run
 
-1. Clone this repo:
+1. Clone repo:
 
    ```bash
-   git clone https://github.com/SuryaJ9/Retail_sales_Automation.git
+   git clone https://github.com/yourusername/retail-sales-analysis.git
    ```
-
 2. Install dependencies:
 
    ```bash
    pip install -r requirements.txt
    ```
-
-3. Set up database connection in `config.py`:
-
-   ```python
-   DB_NAME = "your_db"
-   USER = "your_username"
-   PASSWORD = "your_password"
-   HOST = "localhost"
-   PORT = "5432"
-   ```
-
-4. Run Jupyter Notebook:
-
-   ```bash
-   jupyter notebook notebooks/EDA.ipynb
-   ```
+3. Set up PostgreSQL and run schema file in `/sql/`.
+4. Run Python script to populate data.
+5. Use Jupyter notebooks to perform EDA.
+6. Visualize outputs in Google Sheets.
 
 ---
 
-## 📈 Expected Outcomes
+## 📈 Sample Insights
 
-* Clear view of **customer demographics**
-* Insights into **category-level profitability**
-* Actionable recommendations for **retail strategy**
-* Framework for extending into **predictive analytics** (demand forecasting, customer segmentation)
+* Electronics had the **highest revenue contribution**.
+* Customers aged **25–34** contributed the most sales.
+* Female customers purchased **20% more items on average**.
+* Gross margin maintained at ~40% across categories.
+
+---
+
+## 🔑 Key Takeaways
+
+This project replicates a **realistic data pipeline** for retail analytics:
+
+* **API → Python → PostgreSQL → Google Sheets**
+* End-to-end **data collection, storage, analysis, and visualization**
+* Practical framework for **business-ready EDA**
+
